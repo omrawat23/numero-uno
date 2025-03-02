@@ -10,22 +10,6 @@ import { Heading } from "./Heading";
 import clsx from "clsx";
 import { useEffect, useRef } from "react";
 
-const MASK_CLASSES =
-  "[mask-image:url(/video-mask.png)] [mask-mode:alpha] [mask-position:center_center] [mask-repeat:no-repeat] [mask-size:100%_auto]";
-
-const featureVariants: Variants = {
-  hidden: { opacity: 0, scale: 0.8 },
-  visible: { opacity: 1, scale: 1 }
-};
-
-const pathVariants: Variants = {
-  hidden: { pathLength: 0 },
-  visible: {
-    pathLength: 1,
-    transition: { duration: 2, ease: "easeInOut" }
-  }
-};
-
 const MysticalSymbol = ({ className, symbol }: { className: string; symbol: string }) => (
   <motion.div
     initial={{ opacity: 0, scale: 0 }}
@@ -43,6 +27,36 @@ const MysticalSymbols = {
   mystical: ["✧", "⚝", "⚯", "♅", "☯", "⚡"]
 };
 
+const SacredGeometry = () => (
+  <svg className="absolute inset-0 w-full h-full opacity-5" viewBox="0 0 100 100">
+    <motion.path
+      d="M50 10L90 90L10 90Z"
+      stroke="url(#sacredGradient)"
+      fill="none"
+      strokeWidth="0.2"
+      animate={{ rotate: 360 }}
+      transition={{ duration: 30, repeat: Infinity, ease: "linear" }}
+    />
+    <motion.circle
+      cx="50"
+      cy="50"
+      r="40"
+      stroke="url(#sacredGradient)"
+      fill="none"
+      strokeWidth="0.2"
+      animate={{ scale: [1, 1.2, 1] }}
+      transition={{ duration: 8, repeat: Infinity }}
+    />
+    <defs>
+      <linearGradient id="sacredGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+        <stop offset="0%" stopColor="#9333EA" />
+        <stop offset="50%" stopColor="#EC4899" />
+        <stop offset="100%" stopColor="#9333EA" />
+      </linearGradient>
+    </defs>
+  </svg>
+);
+
 // Enhanced particle effect with trails
 const createParticle = (canvas: HTMLCanvasElement) => ({
   x: Math.random() * canvas.width,
@@ -52,6 +66,14 @@ const createParticle = (canvas: HTMLCanvasElement) => ({
   speedY: Math.random() * 2 - 1,
   hue: Math.random() * 60 + 250, // Purple to pink hues
   trail: [] as { x: number; y: number }[]
+});
+
+// Enhanced particle creation with magical properties
+const createMagicalParticle = (canvas: HTMLCanvasElement) => ({
+  ...createParticle(canvas),
+  glow: Math.random() * 10 + 5,
+  pulse: Math.random() * 0.5 + 0.5,
+  sparkle: Math.random() > 0.7
 });
 
 export default function Hero() {
@@ -68,7 +90,7 @@ export default function Hero() {
     canvas.width = window.innerWidth;
     canvas.height = window.innerHeight;
 
-    const particles = Array.from({ length: 50 }, () => createParticle(canvas));
+    const particles = Array.from({ length: 50 }, () => createMagicalParticle(canvas));
 
     const animate = () => {
       ctx.fillStyle = 'rgba(0, 0, 0, 0.1)';
@@ -112,6 +134,26 @@ export default function Hero() {
 
   return (
     <Bounded className="relative overflow-hidden bg-gradient-to-b from-indigo-950 via-purple-950 to-zinc-950">
+      {/* Mystical Portal Effect */}
+      <motion.div
+        animate={{
+          rotate: 360,
+          scale: [1, 1.1, 1],
+          opacity: [0.3, 0.5, 0.3]
+        }}
+        transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
+        className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[120vh] h-[120vh] pointer-events-none"
+        style={{
+          background: "radial-gradient(circle, rgba(147,51,234,0.2) 0%, rgba(236,72,153,0.1) 50%, transparent 70%)",
+          filter: "blur(40px)"
+        }}
+      />
+
+      {/* Sacred Geometry Patterns */}
+      <div className="absolute inset-0 opacity-30">
+        <SacredGeometry />
+      </div>
+
       {/* Enhanced Mystical Gradient Overlays */}
       <div className="absolute inset-0">
         <div className="absolute inset-0 bg-gradient-radial from-violet-500/10 via-transparent to-transparent" />
@@ -162,6 +204,85 @@ export default function Hero() {
           }}
           className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] border border-purple-500/20 rounded-full blur-sm"
         />
+      </div>
+
+      {/* Ethereal Mist */}
+      <div className="absolute inset-0">
+        {[...Array(3)].map((_, i) => (
+          <motion.div
+            key={i}
+            className="absolute inset-0 bg-gradient-to-br from-purple-500/5 via-transparent to-pink-500/5"
+            animate={{
+              x: ['-100%', '100%'],
+              opacity: [0, 0.5, 0]
+            }}
+            transition={{
+              duration: 15,
+              delay: i * 5,
+              repeat: Infinity,
+              ease: "linear"
+            }}
+          />
+        ))}
+      </div>
+
+      {/* Floating Crystals */}
+      {[...Array(5)].map((_, i) => (
+        <motion.div
+          key={i}
+          className="absolute w-20 h-20"
+          style={{
+            background: `linear-gradient(${45 + i * 30}deg, rgba(139,92,246,0.2), rgba(236,72,153,0.2))`,
+            clipPath: "polygon(50% 0%, 100% 50%, 50% 100%, 0% 50%)",
+            left: `${20 + i * 15}%`,
+            top: `${30 + (i % 3) * 20}%`
+          }}
+          animate={{
+            y: [0, 20, 0],
+            rotate: [0, 360],
+            scale: [1, 1.1, 1],
+            filter: [
+              "hue-rotate(0deg) brightness(1)",
+              "hue-rotate(180deg) brightness(1.2)",
+              "hue-rotate(360deg) brightness(1)"
+            ]
+          }}
+          transition={{
+            duration: 10 + i * 2,
+            repeat: Infinity,
+            ease: "easeInOut"
+          }}
+        />
+      ))}
+
+      {/* Rotating Rune Circles */}
+      <div className="absolute inset-0">
+        {[...Array(2)].map((_, i) => (
+          <motion.div
+            key={i}
+            className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2"
+            animate={{ rotate: 360 }}
+            transition={{
+              duration: 30 + i * 10,
+              repeat: Infinity,
+              ease: "linear"
+            }}
+          >
+            <div className="relative w-[600px] h-[600px]">
+              {MysticalSymbols.runes.map((rune, index) => (
+                <motion.div
+                  key={index}
+                  className="absolute"
+                  style={{
+                    transform: `rotate(${(360 / MysticalSymbols.runes.length) * index}deg) translateY(-250px)`
+                  }}
+                >
+                  <span className="text-purple-500/30 text-2xl filter blur-[1px]">{rune}</span>
+                </motion.div>
+              ))}
+            </div>
+          </motion.div>
+        ))}
       </div>
 
       {/* Particle Canvas */}
