@@ -2,6 +2,8 @@ import { Bounded } from "@/components/Bounded";
 import { Heading } from "@/components/Heading";
 import { SkateboardProduct } from "./SkateboardProduct";
 import { SlideIn } from "@/components/SlideIn";
+import Image from "next/image";
+import MysticalBackground from "./MysticalBackground";
 
 interface ProductGridProps {
   heading: string;
@@ -12,19 +14,21 @@ interface ProductGridProps {
     price: number;
     image: string;
     customizerLink: string;
+    description: string;
   }>;
 }
 
-const Categories = ({ heading, body, products }: ProductGridProps): JSX.Element => {
+export default function Categories({ heading, body, products }: ProductGridProps): JSX.Element {
   return (
-    <Bounded className="bg-texture bg-brand-gray">
+    <Bounded className="relative overflow-hidden bg-gradient-to-b from-indigo-950 via-purple-950 to-zinc-950">
+      <MysticalBackground />
       <SlideIn>
-        <Heading className="text-center ~mb-4/6" as="h2">
+        <Heading className="pt-24 text-center ~mb-4/6 bg-gradient-to-r from-violet-400 via-purple-400 to-pink-400 text-transparent bg-clip-text" as="h2">
           {heading}
         </Heading>
       </SlideIn>
       <SlideIn>
-        <div className="text-center ~mb-6/10">
+        <div className="text-center ~mb-6/10 text-white">
           {body}
         </div>
       </SlideIn>
@@ -35,6 +39,4 @@ const Categories = ({ heading, body, products }: ProductGridProps): JSX.Element 
       </div>
     </Bounded>
   );
-};
-
-export default Categories;
+}

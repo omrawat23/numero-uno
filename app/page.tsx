@@ -2,7 +2,6 @@ import Categories from '@/components/Categories';
 import Footer from '@/components/Footer';
 import Hero from '@/components/Hero';
 import Pricing from '@/components/Pricing';
-import Team from '@/components/Team';
 import TextImage from '@/components/TextImage';
 import VideoBlock from '@/components/VideoBlock';
 
@@ -17,36 +16,37 @@ export default function Page() {
   };
 
   const categoriesData = {
-    heading: "Latest Drop",
-    body: "Check out our amazing collection of custom skateboards",
+    heading: "Numerology Services",
+    body: "Discover your path through the ancient wisdom of numbers",
     products: [
       {
         id: "1",
-        name: "Classic Deck",
+        name: "Individual Personality Analysis",
         price: 9999,
         image: "/cat111.png",
-        customizerLink: "/customize/classic"
+        description: "Ever wondered why you think, feel, and act a certain way? Your date of birth reveals more than you know! Get an in-depth breakdown of your strengths, weaknesses, and life.",
+        customizerLink: "/customize/personality"
       },
       {
         id: "2",
-        name: "Pro Deck",
+        name: "Couple Compatibility Analysis",
         price: 12999,
         image: "/cat222.png",
-        customizerLink: "/customize/pro"
+        description: "Are you and your partner a perfect match? Discover the compatibility between you and your loved one and understand how to enhance your relationship dynamics."
       },
       {
         id: "3",
-        name: "Classic Deck",
+        name: "Name & Phone Number Analysis",
         price: 9999,
         image: "/cat333.png",
-        customizerLink: "/customize/classic"
+        description: "Your name and phone number vibrate with unique energy. Let's analyze whether they align with your destiny and, if needed, make tweaks for a more positive influence."
       },
       {
         id: "4",
-        name: "Pro Deck",
+        name: "Personalized Guidance",
         price: 12999,
         image: "/cat444.png",
-        customizerLink: "/customize/pro"
+        description: "At the end of every session, I provide a tailored roadmap with actionable solutions, including lucky colors, numbers, and planets that influence your success."
       },
     ]
   };
@@ -85,46 +85,55 @@ export default function Page() {
     ]
   };
 
+
   return (
-    <div>
-      <Hero />
+    <div className="scroll-smooth relative">
+      <section id="home">
+        <Hero />
+      </section>
 
-      <TextImage
-        slice={{
-          slice_type: "text_image",
-          variation: "default",
-          primary: {
-            theme: "Blue",
-            heading: "Default Title",
-            body: "Default Description",
-            button: {
-              text: "Click Here",
-              url: "#"
-            },
-            foreground_image: {
-              url: "/front.png",
-              alt: "Placeholder Image"
-            },
-            background_image: {
-              url: "/bg.png",
-              alt: "Placeholder Image"
+      <section id="about">
+        <TextImage
+          slice={{
+            slice_type: "text_image",
+            variation: "default",
+            primary: {
+              theme: "Blue",
+              heading: "About Me",
+              body: "Hey there! I'm Jessica, a numerology enthusiast with a master's in psychology and an unshakable belief in the universe's power. My passion lies in decoding numbers and making lives better. Let's uncover the numerological secrets hidden in your DOB!",
+              button: {
+                text: "Click Here",
+                url: "#"
+              },
+              foreground_image: {
+                url: "/jess.png",
+                alt: "Placeholder Image"
+              },
+              background_image: {
+                url: "/bg.png",
+                alt: "Placeholder Image"
+              }
             }
-          }
-        }}
-      />
+          }}
+        />
+      </section>
 
-      <VideoBlock
-        slice={videoSlice}
-        index={0}
-        slices={[]}
-        context={{}}
-      />
+      {/* <section className="pt-16">
+        <VideoBlock
+          imageSrc="/card-gurl.png"
+          imageAlt="Card Girl Image"
+        />
+      </section> */}
 
-      <Categories {...categoriesData} />
-      <Pricing />
-      <Team {...teamData} />
+      <section id="services">
+        <Categories {...categoriesData} />
+      </section>
 
-         <Footer />
+      <section id="pricing">
+        <Pricing />
+      </section>
+
+      <Footer />
     </div>
   )
 }

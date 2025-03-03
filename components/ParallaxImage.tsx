@@ -85,7 +85,7 @@ export function ParallaxImage({
 
       <div
         ref={foregroundRef}
-        className="col-start-1 row-start-1 transition-transform h-full w-full place-items-center"
+        className="col-start-1 row-start-1 transition-transform h-full w-full place-items-center lg:ml-24"
       >
         <Image
           src={foregroundImage.url}

@@ -1,7 +1,12 @@
+"use client"
+
 import { Bounded } from "./Bounded";
 import { Heading } from "./Heading";
 import { SlideIn } from "./SlideIn";
+import { motion } from "framer-motion";
 import { FaClock, FaFileAlt, FaMoneyBillWave, FaMobileAlt } from 'react-icons/fa';
+import MysticalBackground from "./MysticalBackground";
+import { ButtonLink } from "./ButtonLink";
 
 const PricingCard = ({ title, price, duration, features }: {
   title: string;
@@ -21,18 +26,24 @@ const PricingCard = ({ title, price, duration, features }: {
         </li>
       ))}
     </ul>
-    <button className="w-full py-3 px-6 bg-brand-lime text-brand-navy font-bold rounded-full hover:bg-brand-lime/90 transition-colors">
-      Book Session
-    </button>
+    <ButtonLink
+      href="/book"
+      icon="cart"
+      color="lime"
+      className="w-[90%] text-center bg-brand-lime/10 hover:bg-brand-lime/20 border border-brand-lime/30 hover:border-brand-lime transition-all duration-300"
+    >
+      Book Now
+    </ButtonLink>
   </div>
 );
 
 export default function Pricing() {
   return (
-    <Bounded className="bg-texture bg-brand-navy">
-      <div className="max-w-5xl mx-auto">
+    <Bounded className="relative overflow-hidden bg-gradient-to-b from-indigo-950 via-purple-950 to-zinc-950">
+      <MysticalBackground />
+      <div className="max-w-5xl mx-auto pt-24">
         <SlideIn>
-          <Heading as="h2" size="lg" className="text-center text-white mb-8">
+          <Heading as="h2" size="lg" className="bg-gradient-to-r from-violet-400 via-purple-400 to-pink-400 text-transparent bg-clip-text text-center mb-8">
             Pricing & Sessions
           </Heading>
         </SlideIn>
@@ -79,7 +90,7 @@ export default function Pricing() {
         </div>
 
         {/* Payment Process */}
-        <div className="grid md:grid-cols-2 gap-12 text-white">
+        {/* <div className="grid md:grid-cols-2 gap-12 text-white">
           <SlideIn>
             <div className="space-y-6">
               <h3 className="text-2xl font-bold text-brand-lime flex items-center gap-3">
@@ -117,7 +128,7 @@ export default function Pricing() {
               </ul>
             </div>
           </SlideIn>
-        </div>
+        </div> */}
       </div>
     </Bounded>
   );

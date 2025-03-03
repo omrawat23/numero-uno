@@ -361,7 +361,7 @@ export default function Hero() {
                 <ButtonLink
                   href="/book"
                   icon="cart"
-                  color="pink"
+                  color="orange"
                   className="transform hover:scale-105 transition-transform duration-300 shadow-lg shadow-pink-500/20"
                 >
                   Book Appointment
@@ -392,9 +392,9 @@ export default function Hero() {
       </motion.div>
 
       {/* Enhanced Bottom Wave */}
-      <div className="absolute bottom-0 left-0 right-0 opacity-80">
+      {/* <div className="absolute bottom-0 left-0 right-0 opacity-80">
         <WavyPaths />
-      </div>
+      </div> */}
     </Bounded>
   );
 }

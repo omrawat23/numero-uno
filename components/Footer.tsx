@@ -1,11 +1,14 @@
 import { FaInstagram, FaLinkedin, FaEnvelope, FaPhone, FaMapMarkerAlt, FaClock, FaUserFriends } from 'react-icons/fa';
 import Link from 'next/link';
 import { Bounded } from './Bounded';
+import Image from 'next/image';
+import MysticalBackground from "./MysticalBackground";
 
 export default function Footer() {
   return (
-    <footer className="text-white">
-      <Bounded className="bg-texture bg-brand-navy py-24">
+    <footer className="relative text-white">
+      <Bounded className="relative overflow-hidden bg-gradient-to-b from-indigo-950 via-purple-950 to-zinc-950">
+        <MysticalBackground />
         <div className="grid grid-cols-1 gap-16 md:grid-cols-3">
           {/* About Us Section */}
           <div className="space-y-6">

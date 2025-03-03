@@ -1,42 +1,25 @@
 "use client"
 
 import { Bounded } from "@/components/Bounded";
-import { SliceComponentProps } from "@prismicio/react";
 import clsx from "clsx";
 import Image from "next/image";
 import { useEffect, useRef, useState } from "react";
-import { SlideIn } from "./SlideIn";
-import { Heading } from "./Heading";
-import { ButtonLink } from "./ButtonLink";
+import MysticalBackground from "./MysticalBackground";
 
-// Custom type definitions
-type KeyTextField = string;
-
-interface VideoBlockSlice {
-  id: string;
-  slice_type: string;
-  variation: string;
-  primary: {
-    youtube_video_id: KeyTextField;
-  };
+interface VideoBlockProps {
+  imageSrc: string;
+  imageAlt?: string;
 }
 
 const MASK_CLASSES =
   "[mask-image:url(/video-mask.png)] [mask-mode:alpha] [mask-position:center_center] [mask-repeat:no-repeat] [mask-size:100%_auto]";
 
-const isValidText = (text: KeyTextField | null | undefined): text is string => {
-  return typeof text === "string" && text.length > 0;
-};
-
-export type VideoBlockProps = SliceComponentProps<VideoBlockSlice>;
-
-const VideoBlock = ({ slice }: VideoBlockProps): JSX.Element => {
+export default function VideoBlock({ imageSrc, imageAlt = "Image" }: VideoBlockProps): JSX.Element {
   const [isInView, setIsInView] = useState(false);
   const containerRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     const currentContainerRef = containerRef.current;
-
     const observer = new IntersectionObserver(
       ([entry]) => {
         if (entry.isIntersecting) {
@@ -58,70 +41,30 @@ const VideoBlock = ({ slice }: VideoBlockProps): JSX.Element => {
   });
 
   return (
-    <Bounded
-      data-slice-type={slice.slice_type}
-      data-slice-variation={slice.variation}
-      className="bg-texture bg-zinc-900"
-    >
+    <Bounded className="relative overflow-hidden bg-gradient-to-b from-indigo-950 via-purple-950 to-zinc-950">
+      <MysticalBackground />
+      <div className="absolute inset-0">
+        <div className="absolute inset-0 bg-gradient-radial from-purple-500/5 via-transparent to-transparent" />
+      </div>
+
       <div className="grid grid-cols-1 items-center gap-12 md:grid-cols-2 md:gap-24">
-        {/* Left side content */}
-        <div className="flex flex-col items-center gap-8 text-center md:items-start md:text-left">
-          <SlideIn>
-            <Heading size="lg" as="h2" className="text-white">
-              About me
-            </Heading>
-          </SlideIn>
-          <SlideIn>
-            <div className="max-w-md text-lg leading-relaxed text-white">
-              Discover our unique collection of handcrafted skateboards. Each piece is
-              carefully designed and customized to meet your style and preferences.
-            </div>
-          </SlideIn>
-          <SlideIn>
-            <ButtonLink href="#" color="lime">
-              Learn More
-            </ButtonLink>
-          </SlideIn>
-        </div>
-
-        {/* Right side video with masks */}
         <div className="relative aspect-video">
-          {/* Masks */}
-          <div
-            className={clsx(
-              MASK_CLASSES,
-              "bg-brand-lime absolute inset-0 ~translate-x-2/3 ~translate-y-2/3"
-            )}
-          />
-          <div
-            className={clsx(
-              MASK_CLASSES,
-              "bg-white absolute inset-0 ~translate-x-1/3 ~translate-y-1/2"
-            )}
-          />
-          <div
-            className={clsx(
-              MASK_CLASSES,
-              "bg-white absolute inset-0 ~translate-x-1/2 ~-translate-y-1/3"
-            )}
-          />
+          <div className={clsx(MASK_CLASSES, "bg-brand-lime absolute inset-0 ~translate-x-2/3 ~translate-y-2/3")} />
+          <div className={clsx(MASK_CLASSES, "bg-white absolute inset-0 ~translate-x-1/3 ~translate-y-1/2")} />
+          <div className={clsx(MASK_CLASSES, "bg-white absolute inset-0 ~translate-x-1/2 ~-translate-y-1/3")} />
 
-          {/* Video container with mask */}
           <div className={clsx(MASK_CLASSES, "relative h-full")}>
-            {isValidText(slice.primary.youtube_video_id) && (
-              <div className="relative h-full w-full" ref={containerRef}>
-                {isInView && (
-                               <Image
-                               src="/card-gurl.png"
-                               alt="Video thumbnail"
-                               fill
-                               className="object-cover"
-                               priority
-                             />
-                )}
-              </div>
-            )}
-            {/* Texture overlay */}
+            <div className="relative h-full w-full" ref={containerRef}>
+              {isInView && (
+                <Image
+                  src={imageSrc}
+                  alt={imageAlt}
+                  fill
+                  className="object-cover"
+                  priority
+                />
+              )}
+            </div>
             <Image
               src="/image-texture.png"
               alt=""
@@ -133,6 +76,4 @@ const VideoBlock = ({ slice }: VideoBlockProps): JSX.Element => {
       </div>
     </Bounded>
   );
-};
-
-export default VideoBlock;
+}
